@@ -16,15 +16,18 @@ local maps = {
     -- search
     ["l"] = { "n", desc = "Next search result" },
     ["L"] = { "N", desc = "Prev search result" },
-    -- move till word
-    ["k"] = { "t", expr = false, noremap = true, desc = "Till (forward)" }, -- expr = false needed to override astrovim mapping for k
-    ["K"] = { "T", desc = "Till (backward)" },
     -- leap
     ["m"] = { "<Plug>(leap-forward-to)", desc = "Leap forward to match" },
     ["M"] = { "<Plug>(leap-backward-to)", desc = "Leap backward to match" },
     ["gm"] = { "<Plug>(leap-from-window)", desc = "Leap to match in other window" },
+    -- move begining/end of line
+    ["B"] = { "^", desc = "Move to beginning of line" },
+    ["E"] = { "$", desc = "Move to end of line" },
     -- set mark
     ["<A-m>"] = { "m", desc = "Set marker" },
+    -- move till word
+    ["k"] = { "t", expr = false, noremap = true, desc = "Till (forward)" }, -- expr = false needed to override astrovim mapping for k
+    ["K"] = { "T", expr = false, noremap = true, desc = "Till (backward)" },
   },
 
   -- first key is the mode
