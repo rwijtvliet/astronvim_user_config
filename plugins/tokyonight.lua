@@ -1,6 +1,6 @@
 return {
   "folke/tokyonight.nvim",
-  as = "tokyonight",
+  name = "tokyonight",
   event = "UIEnter",
   config = function()
     require("tokyonight").setup {

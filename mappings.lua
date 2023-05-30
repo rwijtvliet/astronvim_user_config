@@ -1,4 +1,5 @@
 local utils = require "astronvim.utils"
+local get_icon = utils.get_icon
 local is_available = utils.is_available
 -- Mapping data with "desc" stored directly by vim.keymap.set().
 --
@@ -27,13 +28,28 @@ local maps = {
     ["<A-m>"] = { "m", desc = "Set marker" },
     -- move till word
     ["k"] = { "t", expr = false, noremap = true, desc = "Till (forward)" }, -- expr = false needed to override astrovim mapping for k
-    ["K"] = { "T", expr = false, noremap = true, desc = "Till (backward)" },
+    ["K"] = { "T", noremap = true, desc = "Till (backward)" },
   },
 
   -- first key is the mode
   n = {
     -- substitute
-    ["j"] = { "s", expr = false, noremap = true, desc = "Substitute character" }, -- expr = false needed to override astrovim mapping for k
+    ["j"] = { "s", expr = false, noremap = true, desc = "Substitute character" }, -- expr = false needed to override astrovim mapping for j
+    -- Neotest
+    ["<leader>T"] = { desc = get_icon("Testing", 1, true) .. "Test" },
+    ["<leader>Ta"] = { function() require("neotest").run.attach() end, desc = "Attach" },
+    ["<leader>Tf"] = { function() require("neotest").run.run(vim.fn.expand "%") end, desc = "Run File" },
+    ["<leader>TF"] = {
+      function() require("neotest").run.run { vim.fn.expand "%", strategy = "dap" } end,
+      desc = "Debug File",
+    },
+    ["<leader>Tl"] = { function() require("neotest").run.run_last() end, desc = "Run Last" },
+    ["<leader>TL"] = { function() require("neotest").run.run_last { strategy = "dap" } end, desc = "Debug Last" },
+    ["<leader>Tn"] = { function() require("neotest").run.run() end, desc = "Run Nearest" },
+    ["<leader>TN"] = { function() require("neotest").run.run { strategy = "dap" } end, desc = "Debug Nearest" },
+    ["<leader>To"] = { function() require("neotest").output.open { enter = true } end, desc = "Output" },
+    ["<leader>TS"] = { function() require("neotest").run.stop() end, desc = "Stop" },
+    ["<leader>Ts"] = { function() require("neotest").summary.toggle() end, desc = "Summary" },
     -- mappings seen under group name "Buffer"
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
@@ -54,7 +70,7 @@ local maps = {
       desc = "Previous buffer",
     },
     -- quick save
-    -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    -- ["<C-s>"] = { ":w!end, desc = "Save File" },  -- change description but the same command
     -- Change find actions to follow symlinks
     ["<leader>fF"] = {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true, follow = true } end,

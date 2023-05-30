@@ -1,6 +1,6 @@
 return {
   "catppuccin/nvim",
-  as = "catppuccin",
+  name = "catppuccin",
   event = "UIEnter",
   config = function()
     require("catppuccin").setup {

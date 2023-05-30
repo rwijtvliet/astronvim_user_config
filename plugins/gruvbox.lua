@@ -1,14 +1,14 @@
 return {
-   "ellisonleao/gruvbox.nvim",
-    as = 'gruvbox',
-  event='UIEnter',
-    config = function()
-      require('gruvbox').setup {
-        contrast = '',
-      dim_inactive=true,
+  "ellisonleao/gruvbox.nvim",
+  name = "gruvbox",
+  event = "UIEnter",
+  config = function()
+    require("gruvbox").setup {
+      contrast = "",
+      dim_inactive = true,
       italic = {
-        strings = false
+        strings = false,
       },
-      }
-    end,
-  }
+    }
+  end,
+}
