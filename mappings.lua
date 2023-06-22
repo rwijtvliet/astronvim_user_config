@@ -27,7 +27,7 @@ local maps = {
     -- set mark
     ["<A-m>"] = { "m", desc = "Set marker" },
     -- move till word
-    ["k"] = { "t", expr = false, noremap = true, desc = "Till (forward)" }, -- expr = false needed to override astrovim mapping for k
+    ["k"] = { "t", noremap = true, desc = "Till (forward)" }, -- expr = false needed to override astrovim mapping for k
     ["K"] = { "T", noremap = true, desc = "Till (backward)" },
   },
 
@@ -35,7 +35,7 @@ local maps = {
   n = {
     -- substitute
     ["j"] = { "s", expr = false, noremap = true, desc = "Substitute character" }, -- expr = false needed to override astrovim mapping for j
-    -- Neotest
+    -- Testing with Neotest
     ["<leader>T"] = { desc = get_icon("Testing", 1, true) .. "Test" },
     ["<leader>Ta"] = { function() require("neotest").run.attach() end, desc = "Attach" },
     ["<leader>Tf"] = { function() require("neotest").run.run(vim.fn.expand "%") end, desc = "Run File" },
@@ -50,6 +50,8 @@ local maps = {
     ["<leader>To"] = { function() require("neotest").output.open { enter = true } end, desc = "Output" },
     ["<leader>TS"] = { function() require("neotest").run.stop() end, desc = "Stop" },
     ["<leader>Ts"] = { function() require("neotest").summary.toggle() end, desc = "Summary" },
+    -- Docstring with Neogen
+    ["<leader>D"] = { function() require("neogen").generate() end, desc = "Docstring" },
     -- mappings seen under group name "Buffer"
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
@@ -60,6 +62,38 @@ local maps = {
       end,
       desc = "Pick to close",
     },
+    -- Update some keys used for debugging
+    ---- start/restart: unchanged (F5) and new (Shift-F5)
+    -- ["<F5>"] = { function() require("dap").continue() end, desc = "Debugger: Start" },
+    -- ["<leader>dc"] = { function() require("dap").continue() end, desc = "Start/Continue (F5)" },
+    ["<F17>"] = { function() require("dap").restart_frame() end, desc = "Debugger: Restart" }, -- Shift+F5
+    ["<leader>dr"] = { function() require("dap").restart_frame() end, desc = "Restart (S-F5)" },
+    ---- pause/stop: unchange (F6) and new (Shift-F6)
+    -- ["<F6>"] = { function() require("dap").pause() end, desc = "Debugger: Pause" },
+    -- ["<leader>dp"] = { function() require("dap").pause() end, desc = "Pause (F6)" },
+    ["<F18>"] = { function() require("dap").terminate() end, desc = "Debugger: Stop" }, -- Shift+F6
+    ["<leader>dQ"] = { function() require("dap").terminate() end, desc = "Terminate Session (S-F6)" },
+    ---- set breakpoints: unchanged (F9 and Shift-F9)
+    -- ["<F9>"] = { function() require("dap").toggle_breakpoint() end, desc = "Debugger: Toggle Breakpoint" }
+    -- ["<leader>db"] = { function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint (F9)" },
+    -- ["<F21>"] = { function() vim.ui.input({ prompt = "Condition: " }, function(condition) if condition then require("dap").set_breakpoint(condition) end end) end, desc = "Debugger: Conditional Breakpoint", },
+    -- ["<leader>dC"] = { function() vim.ui.input({ prompt = "Condition: " }, function(condition) if condition then require("dap").set_breakpoint(condition) end end) end, desc = "Conditional Breakpoint (S-F9)", },
+    -- ["<leader>dB"] = { function() require("dap").clear_breakpoints() end, desc = "Clear Breakpoints" },
+    ---- stepping: changed (F2, F3, F4)
+    ["<F2>"] = { function() require("dap").step_into() end, desc = "Debugger: Step Into" },
+    ["<leader>di"] = { function() require("dap").step_into() end, desc = "Step Into (F2)" },
+    ["<F3>"] = { function() require("dap").step_over() end, desc = "Debugger: Step Over" },
+    ["<leader>do"] = { function() require("dap").step_over() end, desc = "Step Over (F3)" },
+    ["<F4>"] = { function() require("dap").step_out() end, desc = "Debugger: Step Out" }, -- Shift+F11
+    ["<leader>dO"] = { function() require("dap").step_out() end, desc = "Step Out (F4)" },
+    ---- unset previous mappings
+    ["<F10>"] = false,
+    ["<F11>"] = false,
+    ["<F23>"] = false,
+    ["<F29>"] = false,
+    ["<leader>dq"] = { function() require("dap").close() end, desc = "Close Session" },
+    ["<leader>dR"] = { function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+    ["<leader>ds"] = { function() require("dap").run_to_cursor() end, desc = "Run To Cursor" },
     -- Move between buffers
     ["<A-s>"] = {
       function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
@@ -88,6 +122,10 @@ local maps = {
   t = {
     -- setting a mapping to false will disable it
     -- ["<esc>"] = false,
+    ["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" },
+    ["<C-n>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" },
+    ["<C-t>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" },
+    ["<C-s>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" },
   },
   i = {},
   v = {

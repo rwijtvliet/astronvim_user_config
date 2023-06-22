@@ -16,6 +16,7 @@ return {
         "    ██ ██  ██ ██    ██ ██ ██ ████ ██",
         "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
         "    ██   ████   ████   ██ ██      ██",
+        "    ( loaded Ruud Wijtvliet config )",
       }
       return opts
     end,
